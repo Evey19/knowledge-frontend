@@ -1,0 +1,15 @@
+{
+  "name": "knowledge-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm --filter @knowledge/ui run build && pnpm --filter @knowledge/app run dev"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "vite": "^6.3.2"
+  }
+}
