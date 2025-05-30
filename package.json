@@ -1,15 +1,46 @@
 {
-  "name": "knowledge-frontend",
-  "version": "1.0.0",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "scripts": {
-    "dev": "pnpm --filter @knowledge/ui run build && pnpm --filter @knowledge/app run dev"
+  "name": "knowledge-frontend-cli",
+  "version": "0.0.1",
+  "description": "A Vite-like CLI for knowledge-frontend",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "knowledge-cli": "./bin/cli.js"
   },
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target bun",
+    "build:binary": "bun build src/index.ts --compile --outfile dist/knowledge-cli",
+    "test": "bun test",
+    "prepack": "bun run build"
+  },
+  "keywords": [
+    "cli",
+    "vite",
+    "frontend",
+    "scaffold",
+    "bun"
+  ],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "react": "^19.1.0",
-    "vite": "^6.3.2"
-  }
+    "commander": "^12.0.0",
+    "chalk": "^5.3.0",
+    "inquirer": "^9.2.0",
+    "ora": "^8.0.1",
+    "figlet": "^1.7.0"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.5.8",
+    "@types/inquirer": "^9.0.7",
+    "bun-types": "latest"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "templates"
+  ]
 }
