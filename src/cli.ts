@@ -299,6 +299,41 @@ export async function createCLI(context: CLIContext): Promise<CLIApplication> {
  */
 export class CommandBuilder {
   private command: Partial<CLICommand> = {};
+
+  static create(name: string): CommandBuilder {
+    const builder = new CommandBuilder();
+    builder.command.name = name;
+    return builder;
+  }
+
+  description(desc: string): CommandBuilder {
+    this.command.description = desc;
+    return this;
+  }
+
+  option(flag: string, description: string): CommandBuilder {
+    if (!this.command.options) {
+      this.command.options = {};
+    }
+    this.command.options[flag] = description;
+    return this;
+  }
+
+  action(handler: CLICommand["handler"]): CommandBuilder {
+    this.command.handler = handler;
+    return this;
+  }
+
+  build(): CLICommand {
+    if (
+      !this.command.name ||
+      !this.command.description ||
+      !this.command.handler
+    ) {
+      throw new CLIError("命令构建不完整，缺少必要属性");
+    }
+    return this.command as CLICommand;
+  }
 }
 
 export function defineCommand(config: CLICommand): CLICommand {
